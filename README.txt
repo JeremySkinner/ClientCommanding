@@ -1,0 +1,1 @@
+Prototype of a command-pattern implementation that maps JavaScript command objects to C# command objects.
