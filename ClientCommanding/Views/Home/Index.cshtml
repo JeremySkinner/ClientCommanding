@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="results"></div>
+
+<hr />
+
+<input type="button" data-bind="click: GetUsers" value="Get All Users" />
+<br /><br />
+<input type="text" data-bind="value: UserId" /> 
+<input type="button" data-bind="click: GetUser" value="Get User with specified ID" />
+
+
+<script type="text/html" id="GetUserTemplate">
+	You loaded the user: ${result.Name}
+</script>
+
+<script type="text/html" id="GetUsersTemplate">
+	{{each(i, user) result}}
+		<p><strong>ID:</strong> ${user.Id},  <strong>Name:</strong> ${user.Name}</p>
+	{{/each}}
+</script>
+
+<script type="text/javascript">
+	$(function () {
+		var viewModel = new function () {
+			this.GetUsers = function () {
+				Commands.GetUsers(Commands.GetUsers.RenderTemplate);
+			}
+
+			this.UserId = ko.observable('');
+
+			this.GetUser = function () {
+				Commands.GetUser(this.UserId(), Commands.GetUser.RenderTemplate);
+			}
+		};
+
+		ko.applyBindings(viewModel);
+
+	});
+</script>
+
